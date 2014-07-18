@@ -266,7 +266,7 @@ Key               Type    Notes
 ================= ======= ================================
 ``success``       bool
 ``message``       string  Human-readable error message
-``balance``       int    
+``balance``       json    {'0': {'credit_type', 'amount'}, }
 ================= ======= ================================
 
 
@@ -275,17 +275,17 @@ Key               Type    Notes
 
 Deducts credits from a user's balance for a given game.
 
-**Endpoint**: ``/api/1/account/profile``
+**Endpoint**: ``/api/1/spend``
 
 **Request**
 
-================= ====== ==========================================
-Parameter         Type   Notes
-================= ====== ==========================================
-``session``       string Access token returned by previous login
-``game_id``       guid
-``quantity``      int    Number of tokens to deduct
-================= ====== ==========================================
+================== ====== ==========================================
+Parameter          Type   Notes
+================== ====== ==========================================
+``session``        string Access token returned by previous login
+``credit_type_id`` int
+``quantity``       int    Number of credits to deduct
+================== ====== ==========================================
 
 **Response (JSON)**
 

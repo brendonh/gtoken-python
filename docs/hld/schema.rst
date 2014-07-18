@@ -3,8 +3,6 @@ Database Schema
 
 The schema listing given here is not intended to be comprehensive. It is intended to give a general structure and address some specific decisions, but other tables may be added and those given here may be expanded.
 
-In particular, columns such as ``created`` timestamps, ``is_active``, and ``is_deleted`` are omitted for clarity.
-
 Tables used purely by the OAuth2 provider (e.g. ``oauth2_grant``, ``oauth2_token``) are also omitted. See the documentation for `OAuth2 Servers`_.
 
 .. _`OAuth2 Servers`: https://flask-oauthlib.readthedocs.org/en/latest/oauth2.html
@@ -17,16 +15,24 @@ Accounts
 ``customer_account``
 ````````````````````
 
-============ ============= ====================================
-Column       Type          Notes
-============ ============= ====================================
-``id``       serial     
-``nickname`` varchar(40)
-``email``    varchar(64)   Unique
-``gender``   varchar(8)    ``male``, ``female``, ``other``
-``vip``      varchar(16)   ``standard``, ``gold``, or ``NULL``
-``coins``    decimal(8, 2) GCoin balance
-============ ============= ====================================
+============================= ============= ====================================
+Column                        Type          Notes
+============================= ============= ====================================
+``id``                        serial        Primary Key
+``nickname``                  varchar(40)   Display name
+``email``                     varchar(64)   Unique
+``gender``                    varchar(8)    ``male``, ``female``, ``other``
+``avatar_filename``           text
+``vip``                       varchar(16)   ``standard``, ``gold``, or ``NULL``
+``coins``                     decimal(8, 2) GCoin balance
+``referral_code``             varchar(64)   Unique
+``inviter_referral_code``     varchar(64)   References ``customer_account(referral_code)``
+``created_at``                timestamp
+``updated_at``                timestamp
+``last_login_at``             timestamp
+``is_active``                 boolean       Default False
+``is_archived``               boolean       Default False
+============================= ============= ====================================
 
 
 ``customer_login_password``
@@ -38,6 +44,7 @@ Column                  Type         Notes
 ``id``                  serial
 ``customer_account_id`` int          References ``customer_account(id)``. Unique (only one password login per account)
 ``username``            varchar(32)  Unique
+``email``               varchar(64)  Unique
 ``password``            varchar(40)  BCrypt hash of password
 ======================= ============ ====================================
 
@@ -68,6 +75,11 @@ Column                  Type         Notes
 ``email``               varchar(64)
 ``role``                varchar(16)  ``admin``, ``support``, ``accounting``, ``studio``
 ``studio_id``           integer      References ``studio(id)``. Nullable.
+``created_at``          timestamp
+``updated_at``          timestamp
+``last_login_at``       timestamp
+``is_active``           boolean
+``is_archived``         boolean
 ======================= ============ ====================================
 
 
@@ -109,7 +121,34 @@ Column                  Type         Notes
 ``guid``                uuid         Used as game_id in APIs. Secret.
 ``name``                varchar(128)
 ``description``         text
+======================= ============ ====================================
+
+``credit_type``
+``````````
+======================= ============ ====================================
+Column                  Type         Notes
+======================= ============ ====================================
+``id``                  serial       Primary Key
+``game_id``             integer      References ``game(id)``
+``name``                varchar(32)
+``label``               varchar(32)  Display name of credit
 ``exchange_rate``       integer      Exchange rate from coins to credits
+``icon_filename``       text
+======================= ============ ====================================
+
+``package``
+```````````
+======================= ============ ====================================
+Column                  Type         Notes
+======================= ============ ====================================
+``id``                  serial       Primary Key
+``game_id``             integer      References ``game(id)``
+``credit_type_id``      integer      References ``credit_type(id)``
+``name``                varchar(32)
+``label``               varchar(32)  Display name of package
+``credit_value``        integer
+``gcoin_value``         decimal(8,2)               
+``icon_filename``       text
 ======================= ============ ====================================
 
 
@@ -122,12 +161,12 @@ Credits
 Column                  Type         Notes
 ======================= ============ ====================================
 ``id``                  serial
-``game_id``             integer      References ``game(id)``
+``credit_type_id``      integer      References ``credit_type(id)``
 ``customer_account_id`` integer      References ``customer_account(id)``
 ``balance``             integer      Balance in game credits
 ======================= ============ ====================================
 
-**Constraint**: Unique on (``game_id``, ``customer_account_id``)
+**Constraint**: Unique on (``credit_type_id``, ``customer_account_id``)
 
 
 Transactions
@@ -147,7 +186,9 @@ Column                  Type         Notes
 ``amount``              decimal(8,2) Change in coin balance
 ``partner_account_id``  integer      References ``partner_account(id)``. Nullable
 ``game_id``             integer      References ``game(id)``. Nullable
-``created``             timestamp
+``credit_type_id``      integer      References ``credit_type(id)``. Nullable
+``package_id``          integer      References ``package(id)``. Nullable
+``created_at``          timestamp
 ``description``         text         Extra human-readable information
 ======================= ============ ====================================
 
@@ -164,8 +205,10 @@ Column                  Type         Notes
 ``id``                  serial
 ``customer_account_id`` integer      References ``customer_account(id)``
 ``coin_transaction_id`` integer      References ``coin_transaction(id)``. Nullable.
-``amount``              decimal(8,2) Change in coin balance
+``amount``              decimal(8,2) Change in credit balance
 ``game_id``             integer      References ``game(id)``
-``created``             timestamp
+``credit_type_id``      integer      References ``credit_type(id)``     
+``package_id``          integer      References ``package(id)``
+``created_at``          timestamp
 ``description``         text         Extra human-readable information
 ======================= ============ ====================================
