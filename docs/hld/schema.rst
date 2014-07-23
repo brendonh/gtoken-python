@@ -26,11 +26,10 @@ Column                        Type          Notes
 ``vip``                       varchar(16)   ``standard``, ``gold``, or ``NULL``
 ``coins``                     decimal(8, 2) GCoin balance
 ``referral_code``             varchar(64)   Unique
-``inviter_referral_code``     varchar(64)   References ``customer_account(referral_code)``
+``inviter_id``                int           References ``customer_account(id)``
 ``created_at``                timestamp
 ``updated_at``                timestamp
 ``last_login_at``             timestamp
-``is_active``                 boolean       Default False
 ``is_archived``               boolean       Default False
 ============================= ============= ====================================
 
@@ -109,6 +108,8 @@ Column                  Type         Notes
 ======================= ============ ====================================
 ``id``                  serial
 ``name``                varchar(32)
+``created_at``          timestamp
+``updated_at``          timestamp
 ======================= ============ ====================================
 
 ``game``
@@ -121,6 +122,8 @@ Column                  Type         Notes
 ``guid``                uuid         Used as game_id in APIs. Secret.
 ``name``                varchar(128)
 ``description``         text
+``created_at``          timestamp
+``updated_at``          timestamp
 ======================= ============ ====================================
 
 ``credit_type``
@@ -131,9 +134,10 @@ Column                  Type         Notes
 ``id``                  serial       Primary Key
 ``game_id``             integer      References ``game(id)``
 ``name``                varchar(32)
-``label``               varchar(32)  Display name of credit
 ``exchange_rate``       integer      Exchange rate from coins to credits
 ``icon_filename``       text
+``created_at``          timestamp
+``updated_at``          timestamp
 ======================= ============ ====================================
 
 ``package``
@@ -145,10 +149,11 @@ Column                  Type         Notes
 ``game_id``             integer      References ``game(id)``
 ``credit_type_id``      integer      References ``credit_type(id)``
 ``name``                varchar(32)
-``label``               varchar(32)  Display name of package
 ``credit_value``        integer
 ``gcoin_value``         decimal(8,2)               
 ``icon_filename``       text
+``created_at``          timestamp
+``updated_at``          timestamp
 ======================= ============ ====================================
 
 
