@@ -52,7 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+#local config files
 set_env.sh
+config/local.py
 
 #emacs temp files
 *~
