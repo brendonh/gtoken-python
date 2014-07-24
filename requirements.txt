@@ -8,6 +8,9 @@ argparse==1.2.1
 docutils==0.12
 gunicorn==19.0.0
 itsdangerous==0.24
-psycopg2==2.5.3
+psycopg2==2.4.6
 storm==0.20
 wsgiref==0.1.2
+PyYAML
+-e git+git://github.com/brendonh/schemup.git#egg=schemup
+pytz

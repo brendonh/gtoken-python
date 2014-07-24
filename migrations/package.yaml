@@ -6,7 +6,7 @@ depends:
   - [ game, knn_1 ]
   - [ credit_type, knn_1 ]
 sql:
-  CREATE TABLE credit_type (
+  CREATE TABLE package (
     id SERIAL NOT NULL PRIMARY KEY,
     game_id INTEGER NOT NULL REFERENCES game(id) ON DELETE RESTRICT,
     credit_type_id INTEGER NOT NULL REFERENCES credit_type(id) ON DELETE RESTRICT,

@@ -5,7 +5,8 @@ to: knn_1
 depends:
   - [ coin_transaction, knn_1 ]
 sql:
-  CREATE TABLE coin_transaction (
+  CREATE TABLE credit_transaction (
+    id SERIAL NOT NULL PRIMARY KEY,
     customer_account_id INTEGER NOT NULL REFERENCES customer_account(id) ON DELETE RESTRICT,
     coin_transaction_id INTEGER REFERENCES coin_transaction(id) ON DELETE RESTRICT,
     amount DECIMAL(8,2),

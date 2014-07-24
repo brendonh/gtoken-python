@@ -1,13 +1,13 @@
 import pytz
 
-from gtoken.utils.gtoken_time import _utcnow
+from storm.locals import *
+
+from ..utils.gtoken_time import _utcnow
 
 from . import stormSchema
-from models.games import Studio
-
 
 @stormSchema.versioned
-class CustomerAccount(object):
+class CustomerAccount(Storm):
     __storm_table__ = 'customer_account'
     __version__ = 'knn_1'
 
@@ -24,8 +24,8 @@ class CustomerAccount(object):
     inviter_id = Int()
     inviter = Reference(inviter_id, "CustomerAccount.id")
 
-    created_at = DateTime(tzinfo=pytz.UTC, default_factory=models._utcnow)
-    updated_at = DateTime(tzinfo=pytz.UTC, default_factory=models._utcnow)
+    created_at = DateTime(tzinfo=pytz.UTC, default_factory=_utcnow)
+    updated_at = DateTime(tzinfo=pytz.UTC, default_factory=_utcnow)
     last_login_at = DateTime(tzinfo=pytz.UTC)
 
     is_archived = Bool(default=False)
@@ -35,7 +35,7 @@ class CustomerAccount(object):
 
 
 @stormSchema.versioned
-class CustomerLoginPassword(object):
+class CustomerLoginPassword(Storm):
     __storm_table__ = 'customer_login_password'
     __version__ = 'knn_1'
     id = Int(primary=True)
@@ -49,7 +49,7 @@ class CustomerLoginPassword(object):
 
 
 @stormSchema.versioned
-class CustomerLoginOauth(object):
+class CustomerLoginOauth(Storm):
     __storm_table__ = 'customer_login_oauth'
     __version__ = 'knn_1'
 
@@ -63,7 +63,7 @@ class CustomerLoginOauth(object):
 
 
 @stormSchema.versioned
-class AdminAccount(object):
+class AdminAccount(Storm):
     __storm_table__ = 'admin_account'
     __version__ = 'knn_1'
 
@@ -77,8 +77,8 @@ class AdminAccount(object):
     studio_id = Int()
     studio = Reference(studio_id, 'Studio.id')
 
-    created_at = DateTime(tzinfo=pytz.UTC, default_factory=models._utcnow)
-    updated_at = DateTime(tzinfo=pytz.UTC, default_factory=models._utcnow)
+    created_at = DateTime(tzinfo=pytz.UTC, default_factory=_utcnow)
+    updated_at = DateTime(tzinfo=pytz.UTC, default_factory=_utcnow)
     last_login_at = DateTime(tzinfo=pytz.UTC)
 
     is_active = Bool(default=False)
@@ -89,7 +89,7 @@ class AdminAccount(object):
 
 
 @stormSchema.versioned
-class PartnerAccount(object):
+class PartnerAccount(Storm):
     __storm_table__ = 'partner_account'
     __version__ = 'knn_1'
 

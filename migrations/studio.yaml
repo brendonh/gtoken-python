@@ -1,5 +1,5 @@
 ---
-table: studio,
+table: studio
 from: null
 to: knn_1
 sql:

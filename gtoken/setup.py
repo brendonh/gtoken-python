@@ -44,6 +44,6 @@ def setup():
     import os
     app.logger.debug(os.getcwd())
 
-    commands.load('gtoken/migrations')
+    commands.load('migrations')
     commands.upgrade(pgSchema, models.stormSchema)
     commands.validate(pgSchema, models.stormSchema)

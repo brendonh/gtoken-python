@@ -10,6 +10,7 @@ depends:
   - [ package, knn_1 ]
 sql:
   CREATE TABLE coin_transaction (
+    id SERIAL NOT NULL PRIMARY KEY,
     customer_account_id INTEGER NOT NULL REFERENCES customer_account(id) ON DELETE RESTRICT,
     reciever_account_id INTEGER REFERENCES customer_account(id) ON DELETE RESTRICT,
     amount DECIMAL(8,2),
