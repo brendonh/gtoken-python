@@ -1,0 +1,5 @@
+bind = 'localhost:8000'
+workers = 1
+proc_name = 'gtoken'
+accesslog = '../logs/g_access.log'
+errorlog = '../logs/g_error.log'

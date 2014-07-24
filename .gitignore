@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+0;95;c# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 
@@ -54,7 +54,8 @@ docs/_build/
 
 #local config files
 set_env.sh
-config/local.py
+gtoken/config/local.py
+gunicorn_config.py
 
 #emacs temp files
 *~
