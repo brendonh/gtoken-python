@@ -1,0 +1,21 @@
+---
+table: customer_account
+from: null
+to: knn_1
+sql:
+  CREATE TABLE customer_account (
+    id SERIAL NOT NULL PRIMARY KEY,
+    nickname VARCHAR,
+    email VARCHAR UNIQUE,
+    gender VARCHAR,
+    avatar_filename VARCHAR,
+    vip VARCHAR,
+    coins DECIMAL(8,2),
+    referral_code VARCHAR UNIQUE,
+    inviter_id INTEGER REFERENCES customer_account(id) ON DELETE RESTRICT,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_login_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_archived BOOLEAN NOT NULL DEFAULT 'f'
+  );
+     

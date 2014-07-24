@@ -1,0 +1,13 @@
+---
+table: partner_account
+from: null
+to: knn_1
+sql:
+  CREATE TABLE partner_account (
+    id SERIAL NOT NULL PRIMARY KEY, 
+    name VARCHAR NOT NULL,
+    client_id VARCHAR NOT NULL,
+    client_secret VARCHAR NOT NULL,
+    redirect_uris TEXT,
+    default_scopes TEXT
+  );

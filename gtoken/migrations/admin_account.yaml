@@ -1,0 +1,20 @@
+---
+table: admin_account
+from: null
+to: knn_1
+depends:
+  - [ studio, knn_1 ]
+sql:
+  CREATE TABLE admin_account (
+    id SERIAL NOT NULL PRIMARY KEY,
+    username VARCHAR UNIQUE NOT NULL,
+    password VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
+    role VARCHAR NOT NULL,
+    studio_id INTEGER REFERENCES studio(id) ON DELETE RESTRICT,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_login_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN NOT NULL DEFAULT 'f',
+    is_archived BOOLEAN NOT NULL DEFAULT 'f'
+  );

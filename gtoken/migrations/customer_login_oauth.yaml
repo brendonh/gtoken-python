@@ -1,0 +1,13 @@
+---
+table: customer_login_oauth
+from: null
+to: knn_1
+depends:
+  - [ customer_account, knn_1 ]
+sql:
+  CREATE TABLE customer_login_oauth (
+    id SERIAL NOT NULL PRIMARY KEY,
+    customer_account_id INTEGER NOT NULL REFERENCES customer_account(id) ON DELETE RESTRICT,
+    service VARCHAR NOT NULL,
+    identity TEXT
+  );

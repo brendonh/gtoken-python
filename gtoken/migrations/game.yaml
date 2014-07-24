@@ -1,0 +1,16 @@
+---
+table: game
+from: null
+to: knn_1
+depends:
+  - [ studio, knn_1 ]
+sql:
+  CREATE TABLE game (
+    id SERIAL NOT NULL PRIMARY KEY,
+    guid CHAR(36) NOT NULL UNIQUE,
+    name VARCHAR NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_archived BOOLEAN NOT NULL DEFAULT 'f'
+  );

@@ -1,0 +1,14 @@
+---
+table: credit_balance
+from: null
+to: knn_1
+depends:
+  - [ customer_account, knn_1 ]
+  - [ credit_type, knn_1 ]
+sql:
+  CREATE TABLE credit_balance (
+    id SERIAL NOT NULL PRIMARY KEY,
+    credit_type_id INTEGER NOT NULL REFERENCES credit_type(id) ON DELETE RESTRICT,
+    customer_account_id INTEGER NOT NULL REFERENCES customer_account(id) ON DELETE RESTRICT,
+    balance INTEGER NOT NULL
+  );

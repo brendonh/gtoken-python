@@ -1,0 +1,12 @@
+---
+table: studio,
+from: null
+to: knn_1
+sql:
+  CREATE TABLE studio (
+    id SERIAL NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_archived BOOLEAN NOT NULL DEFAULT 'f'
+  );

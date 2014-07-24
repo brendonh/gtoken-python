@@ -1,0 +1,20 @@
+---
+table: package
+from: null
+to: knn_1
+depends:
+  - [ game, knn_1 ]
+  - [ credit_type, knn_1 ]
+sql:
+  CREATE TABLE credit_type (
+    id SERIAL NOT NULL PRIMARY KEY,
+    game_id INTEGER NOT NULL REFERENCES game(id) ON DELETE RESTRICT,
+    credit_type_id INTEGER NOT NULL REFERENCES credit_type(id) ON DELETE RESTRICT,
+    name VARCHAR NOT NULL,
+    credit_value INTEGER NOT NULL,
+    gcoin_value INTEGER NOT NULL,
+    icon_filename VARCHAR,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_archived BOOLEAN NOT NULL DEFAULT 'f'
+  );
