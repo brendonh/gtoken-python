@@ -41,6 +41,9 @@ def setup():
     pgConn = store._connection._raw_connection
     pgSchema = postgres.PostgresSchema(pgConn, dryRun=False)
 
-    commands.load('migrations')
+    import os
+    app.logger.debug(os.getcwd())
+
+    commands.load('gtoken/migrations')
     commands.upgrade(pgSchema, models.stormSchema)
     commands.validate(pgSchema, models.stormSchema)

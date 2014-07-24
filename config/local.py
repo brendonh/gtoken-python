@@ -1,5 +1,0 @@
-DB = "postgres://gtokendb:gtokendb@localhost/gtokendb"
-LOG_DIR = '../logs/application.log'
-ADMINS = ['khang@gtoken.com']
-DEBUG = False
-TESTING = False

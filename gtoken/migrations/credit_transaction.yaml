@@ -3,11 +3,7 @@ table: credit_transaction
 from: null
 to: knn_1
 depends:
-  - [ customer_account, knn_1 ]
   - [ coin_transaction, knn_1 ]
-  - [ credit_type, knn_1 ]
-  - [ game, knn_1 ]
-  - [ package, knn_1 ]
 sql:
   CREATE TABLE coin_transaction (
     customer_account_id INTEGER NOT NULL REFERENCES customer_account(id) ON DELETE RESTRICT,
